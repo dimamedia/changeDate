@@ -1,7 +1,9 @@
 <?php
 
 /*
-Aseta ajan siirto esim 1 tunti taaksepäin '-1 hour' tai 1 päivä taakse '-1 day' vastaavasti eteenpäin käyttämällä plussaa
+1. Kopioi tämä scripti kansioon jonka tiedostoja haluat muuttaa.
+
+2. Aseta ajan siirto esim 1 tunti taaksepäin '-1 hour' tai 1 päivä taakse '-1 day' vastaavasti eteenpäin käyttämällä plussaa
 '+1 hour' - 1 tunti eteenpäin
 '-2 hours' - 2 tuntia taaksepäin
 '+3 days' - 3 päivää eteenpäin
@@ -10,6 +12,16 @@ Aseta ajan siirto esim 1 tunti taaksepäin '-1 hour' tai 1 päivä taakse '-1 da
 '-6 months' - 6 kuukautta taaksepäin
 */
 $siirto = '-1 hour';
+
+/*
+3. Ajaa tämä scripti komentokehotteella: php -f changeDate.php
+4. Tällä kerta ei tehdä muutoksia, vaan tarkistetaan onko oikeat tiedostot ja onko uusi aika haluttu aika.
+5. Poista tarkistus päältä, asettamalla arvoksi 0.
+*/
+$tarkistus = 1;
+/*
+6. Ajaa tämä scripti uudestaan, tällä kerta muutokset tallennetaan tiedostoihin.
+*/
 
 date_default_timezone_set('Europe/Helsinki');
 
@@ -30,7 +42,7 @@ foreach($list as $file) {
 		print "\tLuotu: ".showDate($created)." muokattu: ".showDate($stat['mtime'])." avattu: ".showDate($stat['atime'])."\n";
 		$newDate = date('YmdHi', strtotime($siirto, $created));
 		print "\tUusi aika: $newDate\n";
-		print exec("touch -t $newDate '".$file."'")."\n";
+		if(!$tarkistus) print exec("touch -t $newDate '".$file."'")."\n";
 	}
 	
 }
