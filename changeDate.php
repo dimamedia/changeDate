@@ -33,6 +33,10 @@ $dir = getcwd();
 print $dir."\n";
 $list = scandir($dir);
 
+print "\n=== changeDate ===\n";
+print "Päivitetään '$dir' kansiossa olevien tiedostojen luonti/muokkaus ajat asetuksella $siirto.\n\n";
+if($tarkistus) print "***\n*** Tarkistus moodi, muutoksia ei tallenneta.\n***\n\n";
+
 foreach($list as $file) {
 
 	if(!preg_match('/(^\.+|\.php$)/', $file)) {
